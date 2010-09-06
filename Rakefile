@@ -1,9 +1,9 @@
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "roles_for_dm"
-    gem.summary = %Q{Faciliatates adding a role strategy to your Data Mapper user model}
-    gem.description = %Q{Faciliatates adding a role strategy to your Data Mapper user model}
+    gem.name = "roles_data_mapper"
+    gem.summary = %Q{Implementation of Roles generic API for DataMapper}
+    gem.description = %Q{Makes it easy to set a role strategy on your User model in DataMapper}
     gem.email = "kmandrup@gmail.com"
     gem.homepage = "http://github.com/kristianmandrup/roles_for_dm"
     gem.authors = ["Kristian Mandrup"]
