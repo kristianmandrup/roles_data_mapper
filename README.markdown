@@ -36,9 +36,19 @@ The following role strategies are included by default. Add your own by adding ex
 * roles_mask
 * role_string
 
-Example:
+*Roles generator*
+
+Apply :admin_flag Role strategy to User model using default roles :admin and :guest (default)
 
 <code>$ rails g data_mapper:roles User --strategy admin_flag</code>
+
+Apply :admin_flag Role strategy to User model using default roles and extra role :author
+
+<code>$ rails g data_mapper:roles_migration User --strategy admin_flag --roles author</code>
+
+Apply :one_role Role strategy to User model without default roles, only with roles :user, :special and :editor
+
+<code>$ rails g data_mapper:roles_migration User --strategy one_role --roles user special editor --no-default-roles</code>
 
 ## Note on Patches/Pull Requests
  
