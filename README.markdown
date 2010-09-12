@@ -27,18 +27,14 @@ This gem is based on Jeweler, so simply:
 
 ## Rails generator
 
-_Note_:
-
-*The Rails generator is a bit "rusty" and hasn't been tested with the latest changes. I hope to update it soon.*
-
 The library comes with a Rails 3 generator that lets you populate a user model with a given role strategy 
 The following role strategies are included by default. Add your own by adding extra files inside the strategy folder, one file for each role strategy is recommended.
 
 * admin_flag
-* inline_role
-* inline_roles
-* role_relations
-* role_mask
+* many_roles
+* one_role
+* roles_mask
+* role_string
 
 Example:
 
