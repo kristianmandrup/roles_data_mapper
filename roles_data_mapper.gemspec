@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristian Mandrup"]
-  s.date = %q{2010-09-11}
+  s.date = %q{2010-09-12}
   s.description = %q{Makes it easy to set a role strategy on your User model in DataMapper}
   s.email = %q{kmandrup@gmail.com}
   s.extra_rdoc_files = [
@@ -35,7 +35,6 @@ Gem::Specification.new do |s|
      "lib/roles_data_mapper/strategy/single/admin_flag.rb",
      "lib/roles_data_mapper/strategy/single/one_role.rb",
      "lib/roles_data_mapper/strategy/single/role_string.rb",
-     "logging.log",
      "roles_data_mapper.gemspec",
      "spec/generator_spec_helper.rb",
      "spec/roles_data_mapper/generators/roles_generator_spec.rb",
