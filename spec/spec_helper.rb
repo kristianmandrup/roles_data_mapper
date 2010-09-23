@@ -1,5 +1,4 @@
-require 'rspec'
-require 'rspec/autorun'
+require 'rspec/core'
 require 'dm-core'
 require 'dm-types'
 require 'dm-migrations'

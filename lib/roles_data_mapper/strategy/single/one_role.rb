@@ -36,10 +36,11 @@ module RoleStrategy::DataMapper
 
     module Implementation      
       # assign roles
-      def roles=(*roles)      
-        raise "Role class #{role_class} does not have a #find_role(role) method" if !role_class.respond_to? :find_role
-        first_role = roles.flatten.first
-        role_relation = role_class.find_role(first_role)  
+      def roles=(*_roles)      
+        return nil if _roles.none?
+        _roles = get_roles(_roles)        
+
+        role_relation = role_class.find_role(_roles.first)  
         self.send("#{role_attribute}=", role_relation)
         save
       end
@@ -47,13 +48,10 @@ module RoleStrategy::DataMapper
       
       # query assigned roles
       def roles
-        role = self.send(role_attribute).name.to_sym
-        [role]
+        role = self.send(role_attribute)
+        role ? [role.name.to_sym] : []        
       end
-      
-      def roles_list
-        self.roles.to_a
-      end      
+      alias_method :roles_list, :roles
     end
 
     extend Roles::Generic::User::Configuration

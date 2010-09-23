@@ -15,8 +15,8 @@ begin
 
     gem.add_dependency "activesupport",     "~> 3.0.0"
     gem.add_dependency "require_all",       '~> 1.2.0' 
-    gem.add_dependency "sugar-high",        '~> 0.2.10'
-    gem.add_dependency "roles_generic",     '~> 0.2.6'
+    gem.add_dependency "sugar-high",        '~> 0.2.11'
+    gem.add_dependency "roles_generic",     '~> 0.2.7'
     
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
