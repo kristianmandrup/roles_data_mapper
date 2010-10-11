@@ -2,10 +2,7 @@
 
 A Data Mapper implementation of [roles generic](http://github.com/kristianmandrup/roles_generic)
 
-## Update!
-
-Now implements the [roles generic](http://github.com/kristianmandrup/roles_generic) Roles API
-It also implements the following Role strategies:
+The following role strategies from Roles Generic are currently supported
 
 * admin_flag
 * many_roles
@@ -25,7 +22,7 @@ This gem is based on Jeweler, so simply:
 
 <code>rake install</code>
 
-## Rails generator
+## Roles Generator
 
 The library comes with a Rails 3 generator that lets you populate a user model with a given role strategy 
 The following role strategies are included by default. Add your own by adding extra files inside the strategy folder, one file for each role strategy is recommended.
@@ -36,7 +33,11 @@ The following role strategies are included by default. Add your own by adding ex
 * roles_mask
 * role_string
 
-*Roles generator*
+### Update Oct 10.
+
+Bugfix: Added dependencies to Rakefile for role generator so they should work out-of-the-box after gem is installed ;)
+
+## Usage examples
 
 Apply :admin_flag Role strategy to User model using default roles :admin and :guest (default)
 

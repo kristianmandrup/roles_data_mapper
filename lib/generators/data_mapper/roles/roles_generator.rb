@@ -1,8 +1,6 @@
 require 'rails3_artifactor'
 require 'logging_assist'
 
-puts "Included!"
-
 module DataMapper 
   module Generators
     class RolesGenerator < Rails::Generators::NamedBase      
@@ -15,8 +13,7 @@ module DataMapper
       class_option :roles, :type => :array, :aliases => "-r", :default => [], :desc => "Valid roles"
 
       def apply_role_strategy
-        log.add_logfile
-        log.debug "apply_role_strategy for : #{strategy} in model #{name}"
+        logger.debug "apply_role_strategy for : #{strategy} in model #{name}"
         begin
           insert_into_model name do
             insertion_text
