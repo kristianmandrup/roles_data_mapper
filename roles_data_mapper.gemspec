@@ -41,15 +41,12 @@ Gem::Specification.new do |s|
      "roles_data_mapper.gemspec",
      "spec/generator_spec_helper.rb",
      "spec/roles_data_mapper/generators/roles_generator_spec.rb",
-<<<<<<< HEAD
-=======
      "spec/roles_data_mapper/strategy/api_examples.rb",
      "spec/roles_data_mapper/strategy/multi/many_roles_spec.rb",
      "spec/roles_data_mapper/strategy/multi/roles_mask_spec.rb",
      "spec/roles_data_mapper/strategy/single/admin_flag_spec.rb",
      "spec/roles_data_mapper/strategy/single/one_role_spec.rb",
      "spec/roles_data_mapper/strategy/single/role_string_spec.rb",
->>>>>>> refactor
      "spec/roles_data_mapper/strategy/user_setup.rb",
      "spec/spec_helper.rb",
      "tmp/rails/config/routes.rb"
