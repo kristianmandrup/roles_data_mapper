@@ -2,9 +2,9 @@ module Roles::DataMapper
   module Strategy
     module Shared
       def set_role role
-        vr = new_role(role)
-        # self.send("#{role_attribute}=", vr)
-        update_attributes(role_attribute => vr)
+        vr = new_role(role)     
+        self.send("#{role_attribute}=", vr)
+        # update_attributes(role_attribute => vr)
       end
       alias_method :set_roles, :set_role
 

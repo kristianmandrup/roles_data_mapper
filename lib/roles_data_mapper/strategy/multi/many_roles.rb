@@ -43,7 +43,7 @@ module RoleStrategy::DataMapper
         all("user_roles.role_id" => role.id)
       end
 
-      def in_roles(*roles)                          
+      def in_any_role(*roles)                          
         role_ids = Role.all(:name.in => roles.flatten).map{|role| role.id}
         all("user_roles.role_id" => role_ids)
       end

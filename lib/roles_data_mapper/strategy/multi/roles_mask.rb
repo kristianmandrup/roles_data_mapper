@@ -22,17 +22,21 @@ module RoleStrategy::DataMapper
         end
       end    
 
-      def in_roles(*roles)
+      def in_any_role(*roles)
         all.select do |user| 
           roles.flatten.any? do |role|
             mask = calc_index(role.to_s)
-            (user.send(role_attribute) & mask) > 0
+            if mask
+              (user.send(role_attribute) & mask) > 0              
+            end
           end
         end
       end    
   
       def calc_index(r)
-        2**strategy_class.valid_roles.index(r.to_sym)
+        idx = strategy_class.valid_roles.index(r.to_sym)
+        return nil if !idx
+        2**idx
       end 
     end
 
@@ -55,8 +59,8 @@ module RoleStrategy::DataMapper
 
       protected
 
-      def calc_index(r)
-        2**strategy_class.valid_roles.index(r)
+      def calc_index(r)                       
+        self.class.calc_index(r)
       end
 
       def get_roles

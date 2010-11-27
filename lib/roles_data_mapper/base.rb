@@ -15,8 +15,8 @@ module Roles
     module ClassMethods
       
       MAP = {
-        :admin_flag   => "property :admin_flag,   ::DataMapper::Property::Flag[:admin, :default]",
-        :roles_mask   => "property :roles_mask,   Integer, :default => 1",
+        :admin_flag   => "property :admin_flag,   ::DataMapper::Property::Flag[:admin, :guest]",
+        :roles_mask   => "property :roles_mask,   Integer, :default => 0",
         :role_string  => "property :role_string,  String",
         :roles_string => "property :roles_string, String"
       }
