@@ -30,14 +30,26 @@ Gem::Specification.new do |s|
      "lib/roles_data_mapper/namespaces.rb",
      "lib/roles_data_mapper/role.rb",
      "lib/roles_data_mapper/strategy.rb",
+     "lib/roles_data_mapper/strategy/multi.rb",
      "lib/roles_data_mapper/strategy/multi/many_roles.rb",
      "lib/roles_data_mapper/strategy/multi/roles_mask.rb",
+     "lib/roles_data_mapper/strategy/shared.rb",
+     "lib/roles_data_mapper/strategy/single.rb",
      "lib/roles_data_mapper/strategy/single/admin_flag.rb",
      "lib/roles_data_mapper/strategy/single/one_role.rb",
      "lib/roles_data_mapper/strategy/single/role_string.rb",
      "roles_data_mapper.gemspec",
      "spec/generator_spec_helper.rb",
      "spec/roles_data_mapper/generators/roles_generator_spec.rb",
+<<<<<<< HEAD
+=======
+     "spec/roles_data_mapper/strategy/api_examples.rb",
+     "spec/roles_data_mapper/strategy/multi/many_roles_spec.rb",
+     "spec/roles_data_mapper/strategy/multi/roles_mask_spec.rb",
+     "spec/roles_data_mapper/strategy/single/admin_flag_spec.rb",
+     "spec/roles_data_mapper/strategy/single/one_role_spec.rb",
+     "spec/roles_data_mapper/strategy/single/role_string_spec.rb",
+>>>>>>> refactor
      "spec/roles_data_mapper/strategy/user_setup.rb",
      "spec/spec_helper.rb",
      "tmp/rails/config/routes.rb"
