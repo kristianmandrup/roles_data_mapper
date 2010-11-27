@@ -34,25 +34,51 @@ module RoleStrategy::DataMapper
       end
     end
 
-    module Implementation      
-      # assign roles
-      def roles=(*_roles)      
-        return nil if _roles.none?
-        _roles = get_roles(_roles)        
+    module Implementation
+      include Roles::DataMapper::Strategy::Single
 
-        role_relation = role_class.find_role(_roles.first)  
-        self.send("#{role_attribute}=", role_relation)
-        save
+      def new_role role
+        role_class.find_role(extract_role role)
       end
-      alias_method :role=, :roles=
-      
-      # query assigned roles
-      def roles
-        role = self.send(role_attribute)
-        role ? [role.name.to_sym] : []        
+
+      def new_roles *roles
+        new_role roles.flatten.first
       end
-      alias_method :roles_list, :roles
+
+      def remove_roles *role_names
+        roles = role_names.flat_uniq
+        set_empty_role if roles_diff(roles).empty?
+        true
+      end 
+
+      def present_roles *roles
+        roles.map{|role| extract_role role}
+      end
+
+      def set_empty_role
+        self.send("#{role_attribute}=", nil)
+      end
     end
+    # 
+    # module Implementation      
+    #   # assign roles
+    #   def roles=(*_roles)      
+    #     return nil if _roles.none?
+    #     _roles = get_roles(_roles)        
+    # 
+    #     role_relation = role_class.find_role(_roles.first)  
+    #     self.send("#{role_attribute}=", role_relation)
+    #     save
+    #   end
+    #   alias_method :role=, :roles=
+    #   
+    #   # query assigned roles
+    #   def roles
+    #     role = self.send(role_attribute)
+    #     role ? [role.name.to_sym] : []        
+    #   end
+    #   alias_method :roles_list, :roles
+    # end 
 
     extend Roles::Generic::User::Configuration
     configure :num => :single, :type => :role_class    
