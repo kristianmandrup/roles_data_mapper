@@ -13,7 +13,7 @@ begin
     gem.add_dependency "dm-types",      "~> 1.0"
     gem.add_dependency "dm-migrations", "~> 1.0"
 
-    gem.add_dependency "activesupport",     ">= 3.0.0"
+    gem.add_dependency "activesupport",     ">= 3.0.1"
     gem.add_dependency "require_all",       '~> 1.2.0' 
     gem.add_dependency "sugar-high",        '>= 0.3.0'
     gem.add_dependency "roles_generic",     '>= 0.3.0'

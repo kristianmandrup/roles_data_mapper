@@ -23,7 +23,7 @@ def api_name
   :one_role
 end
 
-load 'roles_active_record/strategy/api_examples.rb'
+load 'roles_data_mapper/strategy/api_examples.rb'
 
 # require 'spec_helper' 
 # use_roles_strategy :one_role

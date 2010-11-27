@@ -1,4 +1,4 @@
-require 'roles_active_record/strategy/multi'
+require 'roles_data_mapper/strategy/multi'
 
 class Role
   def self.named role_names 

@@ -1,3 +1,5 @@
+require 'roles_data_mapper/strategy/single'
+
 class Role
   def self.named role_names 
     where(:name.in => role_names.flatten)

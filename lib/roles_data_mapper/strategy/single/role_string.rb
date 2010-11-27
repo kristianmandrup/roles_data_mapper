@@ -1,3 +1,5 @@
+require 'roles_data_mapper/strategy/single'
+
 module RoleStrategy::DataMapper
   module RoleString    
     def self.default_role_attribute

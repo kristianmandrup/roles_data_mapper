@@ -1,3 +1,5 @@
+require 'roles_data_mapper/strategy/multi'
+
 module RoleStrategy::DataMapper
   module RolesMask
     def self.default_role_attribute

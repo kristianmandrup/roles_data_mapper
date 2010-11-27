@@ -23,7 +23,7 @@ def api_name
   :roles_mask
 end
 
-load 'roles_active_record/strategy/api_examples.rb'
+load 'roles_data_mapper/strategy/api_examples.rb'
 
 
 # require 'spec_helper'
