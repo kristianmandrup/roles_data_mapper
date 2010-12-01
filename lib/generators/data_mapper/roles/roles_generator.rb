@@ -10,24 +10,41 @@ module DataMapper
                    :desc => "Role strategy to use (admin_flag, role_string, roles_string, role_strings, one_role, many_roles, roles_mask)"
 
 
-      class_option :roles, :type => :array, :aliases => "-r", :default => [], :desc => "Valid roles"
+      class_option :logfile, :type => :string,   :default => nil,   :desc => "Logfile location"
+      class_option :roles, :type => :array, :default => [], :desc => "Valid roles"
 
       def apply_role_strategy
+        logger.add_logfile :logfile => logfile if logfile
         logger.debug "apply_role_strategy for : #{strategy} in model #{name}"
+
+        if !has_model_file?(user_model_name)
+          say "User model #{user_model_name} not found", :red
+          return 
+        end
+       
         begin
-          insert_into_model name do
+          insert_into_model name, :after => 'include DataMapper::Resource'  do
             insertion_text
           end
-        rescue
-          say "Model #{name} not found"
+        rescue Exeption => e
+          logger.debug"Error: #{e.message}"
         end
-      end 
+     end 
       
       protected                  
 
       extend Rails3::Assist::UseMacro
+      include Rails3::Assist::BasicLogger
+
       use_orm :data_mapper
-      include Rails::Assist::BasicLogging
+
+      def logfile
+        options[:logfile]
+      end
+
+      def user_model_name
+        name || 'User'
+      end
 
       def orm
         :data_mapper
@@ -54,7 +71,12 @@ module DataMapper
       end
   
       def roles_statement
+        return '' if has_valid_roles_statement?
         roles ? "valid_roles_are #{roles.join(', ')}" : ''
+      end
+
+      def has_valid_roles_statement? 
+        !(read_model(user_model_name) =~ /valid_roles_are/).nil?
       end
   
       def insertion_text
