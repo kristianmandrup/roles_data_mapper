@@ -6,6 +6,8 @@ module DataMapper
     class RolesGenerator < Rails::Generators::NamedBase      
       desc "Add role strategy to a model" 
       
+      # argument name
+      
       class_option :strategy, :type => :string, :aliases => "-s", :default => 'role_string', 
                    :desc => "Role strategy to use (admin_flag, role_string, roles_string, role_strings, one_role, many_roles, roles_mask)"
 
