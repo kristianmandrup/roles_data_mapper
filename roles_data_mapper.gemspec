@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{roles_data_mapper}
-  s.version = "0.2.1"
+  s.version = "0.2.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristian Mandrup"]
-  s.date = %q{2010-12-01}
+  s.date = %q{2010-12-20}
   s.description = %q{Makes it easy to set a role strategy on your User model in DataMapper}
   s.email = %q{kmandrup@gmail.com}
   s.extra_rdoc_files = [
@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
     ".rspec",
+    "Changelog.textile",
     "LICENSE",
     "README.markdown",
     "Rakefile",
@@ -76,22 +77,24 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<dm-core>, ["~> 1.0"])
       s.add_runtime_dependency(%q<dm-types>, ["~> 1.0"])
       s.add_runtime_dependency(%q<dm-migrations>, ["~> 1.0"])
-      s.add_runtime_dependency(%q<activesupport>, [">= 3.0.0"])
+      s.add_runtime_dependency(%q<dm-validations>, ["~> 1.0"])
+      s.add_runtime_dependency(%q<activesupport>, [">= 3.0.1"])
       s.add_runtime_dependency(%q<require_all>, ["~> 1.2.0"])
-      s.add_runtime_dependency(%q<sugar-high>, [">= 0.3.0"])
-      s.add_runtime_dependency(%q<roles_generic>, [">= 0.3.1"])
-      s.add_runtime_dependency(%q<rails3_artifactor>, [">= 0.3.1"])
+      s.add_runtime_dependency(%q<sugar-high>, [">= 0.3.1"])
+      s.add_runtime_dependency(%q<roles_generic>, [">= 0.3.2"])
+      s.add_runtime_dependency(%q<rails3_artifactor>, [">= 0.3.2"])
       s.add_runtime_dependency(%q<logging_assist>, [">= 0.1.6"])
     else
       s.add_dependency(%q<rspec>, [">= 2.0.1"])
       s.add_dependency(%q<dm-core>, ["~> 1.0"])
       s.add_dependency(%q<dm-types>, ["~> 1.0"])
       s.add_dependency(%q<dm-migrations>, ["~> 1.0"])
-      s.add_dependency(%q<activesupport>, [">= 3.0.0"])
+      s.add_dependency(%q<dm-validations>, ["~> 1.0"])
+      s.add_dependency(%q<activesupport>, [">= 3.0.1"])
       s.add_dependency(%q<require_all>, ["~> 1.2.0"])
-      s.add_dependency(%q<sugar-high>, [">= 0.3.0"])
-      s.add_dependency(%q<roles_generic>, [">= 0.3.1"])
-      s.add_dependency(%q<rails3_artifactor>, [">= 0.3.1"])
+      s.add_dependency(%q<sugar-high>, [">= 0.3.1"])
+      s.add_dependency(%q<roles_generic>, [">= 0.3.2"])
+      s.add_dependency(%q<rails3_artifactor>, [">= 0.3.2"])
       s.add_dependency(%q<logging_assist>, [">= 0.1.6"])
     end
   else
@@ -99,11 +102,12 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<dm-core>, ["~> 1.0"])
     s.add_dependency(%q<dm-types>, ["~> 1.0"])
     s.add_dependency(%q<dm-migrations>, ["~> 1.0"])
-    s.add_dependency(%q<activesupport>, [">= 3.0.0"])
+    s.add_dependency(%q<dm-validations>, ["~> 1.0"])
+    s.add_dependency(%q<activesupport>, [">= 3.0.1"])
     s.add_dependency(%q<require_all>, ["~> 1.2.0"])
-    s.add_dependency(%q<sugar-high>, [">= 0.3.0"])
-    s.add_dependency(%q<roles_generic>, [">= 0.3.1"])
-    s.add_dependency(%q<rails3_artifactor>, [">= 0.3.1"])
+    s.add_dependency(%q<sugar-high>, [">= 0.3.1"])
+    s.add_dependency(%q<roles_generic>, [">= 0.3.2"])
+    s.add_dependency(%q<rails3_artifactor>, [">= 0.3.2"])
     s.add_dependency(%q<logging_assist>, [">= 0.1.6"])
   end
 end
