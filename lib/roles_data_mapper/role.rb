@@ -3,8 +3,11 @@ module Roles::Base
     strategy_class.valid_roles = role_list.to_symbols
     if role_class_name
       role_list.each do |name|
-        role = role_class_name.create(:name => name.to_s)
-        role.save
+        begin
+          role = role_class_name.create(:name => name.to_s)
+          role.save
+        rescue
+        end
       end
     end
   end
@@ -15,6 +18,8 @@ class Role
   
   property :id, Serial  
   property :name, String
+
+  validates_uniqueness_of :name
 
   class << self
     def find_roles(*role_names)

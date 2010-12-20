@@ -6,6 +6,7 @@ require 'sugar-high/array'
 require 'dm-core'
 require 'dm-types'
 require 'dm-migrations'
+require 'dm-validations'
 
 require 'roles_data_mapper/namespaces'
 require 'roles_data_mapper/base'

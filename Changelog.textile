@@ -1,0 +1,8 @@
+h2. Changelog
+
+h3. 20. Dec 2010
+
+Added uniqueness validation to Role class to ensure no duplicates of role for :one and :many role strategies
+
+
+
