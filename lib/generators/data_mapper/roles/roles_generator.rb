@@ -14,7 +14,10 @@ module DataMapper
 
       class_option :logfile, :type => :string,   :default => nil,   :desc => "Logfile location"
       class_option :roles, :type => :array, :default => [], :desc => "Valid roles"
-      class_option :role_class,   :type => :string,   :aliases => "-rc", :default => 'Role', :desc => "Role class"
+      
+      class_option :role_class,       :type => :string,   :aliases => "-rc", :default => 'Role', :desc => "Role class"
+      class_option :user_class,       :type => :string, :aliases => "-uc", :default => 'User', :desc => "User class"
+      class_option :user_role_class,  :type => :string, :aliases => "-urc", :default => 'UserRole', :desc => "User Role join class"
 
       def apply_role_strategy
         logger.add_logfile :logfile => logfile if logfile
@@ -31,11 +34,19 @@ module DataMapper
           end
         rescue Exeption => e
           logger.debug"Error: #{e.message}"
-        end 
-        
-        copy_role_class if role_class_strategy?
+        end         
      end 
-      
+
+     def copy_role_models
+       logger.debug 'copy_role_models'
+       case strategy.to_sym  
+       when :one_role
+         copy_one_role_model
+       when :many_roles
+         copy_many_roles_models
+       end
+     end
+                 
       protected                  
 
       extend Rails3::Assist::UseMacro
@@ -43,9 +54,17 @@ module DataMapper
 
       use_orm :data_mapper
 
-      def copy_role_class
-        logger.debug "copy_role_class: #{role_class.underscore}"
-        template 'role.rb', "app/models/#{role_class.underscore}.rb"
+      def copy_one_role_model
+        logger.debug "copy_one_role_model: #{role_class.underscore}"
+
+        template 'one_role/role.rb', "app/models/#{role_class.underscore}.rb"
+      end
+
+      def copy_many_roles_models        
+        logger.debug "copy_many_roles_models: #{role_class.underscore} and #{user_role_class.underscore}"
+
+        template 'many_roles/role.rb', "app/models/#{role_class.underscore}.rb"        
+        template 'many_roles/user_role.rb', "app/models/#{user_role_class.underscore}.rb"
       end
 
       def logfile
@@ -100,10 +119,18 @@ module DataMapper
   #{valid_roles_statement}}
       end
 
+      def user_class
+        options[:user_class].classify || 'User'
+      end
+
       def role_class
         options[:role_class].classify || 'Role'
       end
-  
+
+      def user_role_class
+        options[:user_role_class].classify || 'UserRole'
+      end
+        
       def strategy
         options[:strategy]                
       end
