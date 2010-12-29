@@ -1,11 +1,8 @@
 require 'roles_data_mapper/strategy/multi'
 
+# TODO: Refactor into strategy method to make generic and not hardcoded names and model linking
 class Role
-  def self.named role_names 
-    where(:name.in => role_names.flatten)
-  end
-
-  property :id, Serial
+  include DataMapper::Resource  
   has n, :user_roles      
   has n, :users, :through => :user_roles
 end  

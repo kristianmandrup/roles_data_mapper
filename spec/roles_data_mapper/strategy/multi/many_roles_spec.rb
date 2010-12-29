@@ -1,12 +1,10 @@
 require 'spec_helper'
-use_roles_strategy :many_roles
 
 class User
   include DataMapper::Resource  
   include Roles::DataMapper 
   
-  strategy :many_roles, :default
-  role_class :role
+  strategy :many_roles
   
   property :id, Serial
   property :name, String   
@@ -16,14 +14,6 @@ DataMapper.finalize
 DataMapper.auto_migrate!
 
 User.valid_roles_are :admin, :guest, :user
-
-# def api_migrate
-#   migrate('many_roles')
-# end
-# 
-# def api_fixture
-#   load 'fixtures/many_roles_setup.rb'
-# end
 
 def api_name
   :many_roles

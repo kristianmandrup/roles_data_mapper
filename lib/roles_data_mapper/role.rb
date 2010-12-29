@@ -13,15 +13,8 @@ module Roles::Base
   end
 end
 
-class Role
-  include DataMapper::Resource
-  
-  property :id, Serial  
-  property :name, String
-
-  validates_uniqueness_of :name
-
-  class << self
+module RoleClass
+  module ClassMethods
     def find_roles(*role_names)
       all(:name => role_names.flatten)
     end
@@ -32,4 +25,5 @@ class Role
       res ? res.first : res
     end
   end
-end  
+end
+

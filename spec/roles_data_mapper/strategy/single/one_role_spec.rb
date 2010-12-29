@@ -1,12 +1,11 @@
 require 'spec_helper'
-use_roles_strategy :one_role
 
 class User
   include DataMapper::Resource  
   include Roles::DataMapper 
   
-  strategy :one_role, :default 
-  role_class :role
+  strategy :one_role
+
   property :id, Serial
   property :name, String   
 end
@@ -15,10 +14,6 @@ DataMapper.finalize
 DataMapper.auto_migrate!
 
 User.valid_roles_are :admin, :guest, :user
-
-# def api_migrate
-#   migrate('roles_mask')
-# end
 
 def api_name
   :one_role

@@ -14,6 +14,7 @@ module DataMapper
 
       class_option :logfile, :type => :string,   :default => nil,   :desc => "Logfile location"
       class_option :roles, :type => :array, :default => [], :desc => "Valid roles"
+      class_option :role_class,   :type => :string,   :aliases => "-rc", :default => 'Role', :desc => "Role class"
 
       def apply_role_strategy
         logger.add_logfile :logfile => logfile if logfile
@@ -30,7 +31,9 @@ module DataMapper
           end
         rescue Exeption => e
           logger.debug"Error: #{e.message}"
-        end
+        end 
+        
+        copy_role_class if role_class_strategy?
      end 
       
       protected                  
@@ -39,6 +42,11 @@ module DataMapper
       include Rails3::Assist::BasicLogger
 
       use_orm :data_mapper
+
+      def copy_role_class
+        logger.debug "copy_role_class: #{role_class.underscore}"
+        template 'role.rb', "app/models/#{role_class.underscore}.rb"
+      end
 
       def logfile
         options[:logfile]
@@ -55,6 +63,10 @@ module DataMapper
       def default_roles
         [:admin, :guest]        
       end
+
+      def role_class_strategy?
+        [:one_role, :many_roles].include? strategy.to_sym
+      end
   
       def roles_to_add
         @roles_to_add ||= default_roles.concat(options[:roles]).to_symbols.uniq
@@ -65,14 +77,15 @@ module DataMapper
       end
   
       def role_strategy_statement 
-        "strategy :#{strategy}, :default\n#{role_class_stmt}"
+        "strategy :#{strategy} #{strategy_options}"
       end
 
-      def role_class_stmt
-        "  role_class :role" if [:one_role, :many_roles].include? (strategy.to_sym)
+      def strategy_options
+        return ", :role_class => :#{role_class.to_s.underscore}" if role_class_strategy? && role_class.to_s != 'Role'
+        ''
       end
-  
-      def roles_statement
+        
+      def valid_roles_statement
         return '' if has_valid_roles_statement?
         roles ? "valid_roles_are #{roles.join(', ')}" : ''
       end
@@ -84,7 +97,11 @@ module DataMapper
       def insertion_text
         %Q{include Roles::#{orm.to_s.camelize} 
   #{role_strategy_statement}
-  #{roles_statement}}
+  #{valid_roles_statement}}
+      end
+
+      def role_class
+        options[:role_class].classify || 'Role'
       end
   
       def strategy
