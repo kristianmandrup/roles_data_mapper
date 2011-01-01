@@ -23,6 +23,11 @@ module DataMapper
         logger.add_logfile :logfile => logfile if logfile
         logger.debug "apply_role_strategy for : #{strategy} in model #{name}"
 
+        if !valid_strategy?
+          say "Strategy '#{strategy}' is not valid, at least not for Data Mapper", :red
+          return 
+        end
+
         if !has_model_file?(user_model_name)
           say "User model #{user_model_name} not found", :red
           return 
@@ -34,18 +39,10 @@ module DataMapper
           end
         rescue Exeption => e
           logger.debug"Error: #{e.message}"
-        end         
+        end 
+        
+        copy_role_models if role_class_strategy?        
      end 
-
-     def copy_role_models
-       logger.debug 'copy_role_models'
-       case strategy.to_sym  
-       when :one_role
-         copy_one_role_model
-       when :many_roles
-         copy_many_roles_models
-       end
-     end
                  
       protected                  
 
@@ -53,6 +50,24 @@ module DataMapper
       include Rails3::Assist::BasicLogger
 
       use_orm :data_mapper
+
+      def valid_strategy?
+        valid_strategies.include? strategy.to_sym
+      end
+
+      def valid_strategies
+        [:admin_flag, :role_string, :one_role, :many_roles, :roles_mask]
+      end        
+
+      def copy_role_models
+        logger.debug 'copy_role_models'
+        case strategy.to_sym  
+        when :one_role
+          copy_one_role_model
+        when :many_roles
+          copy_many_roles_models
+        end
+      end
 
       def copy_one_role_model
         logger.debug "copy_one_role_model: #{role_class.underscore}"

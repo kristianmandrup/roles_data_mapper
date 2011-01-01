@@ -1,8 +1,11 @@
 require 'generator_spec_helper'
-require_generator :data_mapper => :roles
+
+# require_generator :data_mapper => :roles
+require 'generators/data_mapper/roles/roles_generator'
 
 # root_dir = Rails3::Assist::Directory.rails_root
-root_dir = File.join(Rails.application.config.root_dir, 'rails')
+# root_dir = File.join(Rails.application.config.root_dir, 'rails')
+root_dir = Rails.root
 
 describe 'role strategy generator: admin_flag' do
   describe 'ORM: data_mapper' do  
@@ -48,7 +51,7 @@ describe 'role strategy generator: admin_flag' do
           clazz.should include_module 'DataMapper::Resource'
           clazz.should include_module 'Roles::DataMapper'
           clazz.should have_call :valid_roles_are, :args => ':admin, :guest, :user'
-          clazz.should have_call :role_class, :args => ":role"        
+          # clazz.should have_call :role_class, :args => ":role"        
           clazz.should have_call :strategy, :args => ":one_role"        
         end
       end
