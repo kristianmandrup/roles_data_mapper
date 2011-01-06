@@ -34,7 +34,14 @@ module DataMapper
           return 
         end
        
-        begin
+        if !is_data_mapper_model?(user_class)
+          say "User model #{user_class} is not a Data Mapper resource", :red
+          return 
+        end
+        
+        begin 
+          logger.debug "Trying to insert roles code into #{user_class}"     
+
           insert_into_model user_class, :after => 'include DataMapper::Resource'  do
             insertion_text
           end
@@ -51,6 +58,10 @@ module DataMapper
       include Rails3::Assist::BasicLogger
 
       use_orm :data_mapper
+
+      def is_data_mapper_model? name
+        read_model(name) =~ /include DataMapper::Resource/
+      end
 
       def valid_strategy?
         valid_strategies.include? strategy.to_sym
