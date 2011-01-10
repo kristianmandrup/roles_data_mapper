@@ -17,5 +17,5 @@ group :test do
   gem "rspec",            ">= 2.0.1" 
   gem "yaml"
   gem "logger"
-  gem "generator_spec",   '>= 0.7.0'
+  gem "generator-spec",   '>= 0.7.0'
 end
