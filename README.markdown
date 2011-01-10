@@ -33,10 +33,6 @@ The following role strategies are included by default. Add your own by adding ex
 * roles_mask
 * role_string
 
-### Update Oct 10.
-
-Bugfix: Added dependencies to Rakefile for role generator so they should work out-of-the-box after gem is installed ;)
-
 ## Usage examples
 
 Apply :admin_flag Role strategy to User model using default roles :admin and :guest (default)

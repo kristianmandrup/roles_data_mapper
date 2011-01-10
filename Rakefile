@@ -7,7 +7,8 @@ begin
     gem.email = "kmandrup@gmail.com"
     gem.homepage = "http://github.com/kristianmandrup/roles_for_dm"
     gem.authors = ["Kristian Mandrup"]
-    gem.add_development_dependency "rspec", ">= 2.0.1"
+    gem.add_development_dependency "rspec",           ">= 2.0.1"
+    gem.add_development_dependency "generator_spec",  '>= 0.7.0'
 
     gem.add_dependency "dm-core",         "~> 1.0"
     gem.add_dependency "dm-types",        "~> 1.0"
@@ -20,7 +21,7 @@ begin
     gem.add_dependency "roles_generic",     '>= 0.3.2'
 
     gem.add_dependency 'rails3_artifactor', '>= 0.3.2'
-    gem.add_dependency 'logging_assist',    '>= 0.1.6'
+    gem.add_dependency 'logging_assist',    '>= 0.2.0'
     
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end

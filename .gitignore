@@ -16,6 +16,10 @@ tmtags
 ## PROJECT::GENERAL
 coverage
 rdoc
-pkg
+pkg 
+pkg/*
+tmp
+tmp/*
+Gemfile.lock
 
 ## PROJECT::SPECIFIC

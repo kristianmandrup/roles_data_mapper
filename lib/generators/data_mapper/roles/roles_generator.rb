@@ -1,5 +1,6 @@
 require 'rails3_artifactor'
 require 'logging_assist'
+require 'generators/data_mapper/roles/core_ext'
 
 module DataMapper 
   module Generators
@@ -20,33 +21,35 @@ module DataMapper
 
       class_option :logfile,          :type => :string,   :aliases => "-l",   :default => nil,        :desc => "Logfile location"
 
+      source_root File.dirname(__FILE__) + '/templates'
+
       def apply_role_strategy
         logger.add_logfile :logfile => logfile if logfile
         logger.debug "apply_role_strategy for : #{strategy} in model #{user_class}"
 
         if !valid_strategy?
-          say "Strategy '#{strategy}' is not valid, at least not for Data Mapper", :red
+          logger.error "Strategy '#{strategy}' is not valid, at least not for Data Mapper"
           return 
         end
 
-        if !has_model_file?(user_class)
-          say "User model #{user_class} not found", :red
+        if !has_model_file?(user_file)
+          say "User model in #{user_file} not found", :red
           return 
         end
        
-        if !is_data_mapper_model?(user_class)
-          say "User model #{user_class} is not a Data Mapper resource", :red
+        if !is_data_mapper_model?(user_file)
+          logger.error "User model in #{user_file} is not a Data Mapper resource"
           return 
         end
         
         begin 
-          logger.debug "Trying to insert roles code into #{user_class}"     
+          logger.debug "Trying to insert roles code into #{user_file}"     
 
-          insert_into_model user_class, :after => 'include DataMapper::Resource'  do
+          insert_into_model user_file, :after => 'include DataMapper::Resource'  do
             insertion_text
           end
         rescue Exeption => e
-          logger.debug"Error: #{e.message}"
+          logger.error "Error: #{e.message}"
         end 
         
         copy_role_models if role_class_strategy?        
@@ -58,6 +61,18 @@ module DataMapper
       include Rails3::Assist::BasicLogger
 
       use_orm :data_mapper
+
+      def user_file
+        user_class.as_filename
+      end
+
+      def role_file
+        role_class.as_filename
+      end
+
+      def user_role_file
+        user_role_class.as_filename
+      end
 
       def is_data_mapper_model? name
         read_model(name) =~ /include DataMapper::Resource/
@@ -82,16 +97,16 @@ module DataMapper
       end
 
       def copy_one_role_model
-        logger.debug "copy_one_role_model: #{role_class.underscore}"
+        logger.debug "generating role model for one_role strategy: #{role_file}"
 
-        template 'one_role/role.rb', "app/models/#{role_class.underscore}.rb"
+        template 'one_role/role.rb', "app/models/#{role_file}.rb"
       end
 
       def copy_many_roles_models        
-        logger.debug "copy_many_roles_models: #{role_class.underscore} and #{user_role_class.underscore}"
+        logger.debug "generating role models for many_roles strategy: #{role_file} and #{user_role_file}"
 
-        template 'many_roles/role.rb', "app/models/#{role_class.underscore}.rb"        
-        template 'many_roles/user_role.rb', "app/models/#{user_role_class.underscore}.rb"
+        template 'many_roles/role.rb', "app/models/#{role_file}.rb"        
+        template 'many_roles/user_role.rb', "app/models/#{user_role_file}.rb"
       end
 
       def logfile
@@ -123,7 +138,7 @@ module DataMapper
       end
 
       def strategy_options
-        return ", :role_class => :#{role_class.to_s.underscore}" if role_class_strategy? && role_class.to_s != 'Role'
+        return ", :role_class => '#{role_class}'" if role_class_strategy? && role_class.to_s != 'Role'
         ''
       end
         
@@ -140,10 +155,6 @@ module DataMapper
         %Q{include Roles::#{orm.to_s.camelize} 
   #{role_strategy_statement}
   #{valid_roles_statement}}
-      end
-
-      def user_class
-        options[:user_class].classify || 'User'
       end
 
       def role_class
